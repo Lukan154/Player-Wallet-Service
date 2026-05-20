@@ -1,0 +1,16 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>f7cd0d04-c331-4c2c-8490-0926341c629a</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Player Wallet Service.ApiService\Player Wallet Service.ApiService.csproj" />
+    <ProjectReference Include="..\Player Wallet Service.Web\Player Wallet Service.Web.csproj" />
+  </ItemGroup>
+
+</Project>

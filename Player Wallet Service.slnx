@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Player Wallet Service.ApiService/Player Wallet Service.ApiService.csproj" />
+  <Project Path="Player Wallet Service.AppHost/Player Wallet Service.AppHost.csproj" />
+  <Project Path="Player Wallet Service.ServiceDefaults/Player Wallet Service.ServiceDefaults.csproj" />
+  <Project Path="Player Wallet Service.Web/Player Wallet Service.Web.csproj" />
+</Solution>
