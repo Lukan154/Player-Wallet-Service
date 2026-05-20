@@ -10,7 +10,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Player Wallet Service.ApiService\Player Wallet Service.ApiService.csproj" />
-    <ProjectReference Include="..\Player Wallet Service.Web\Player Wallet Service.Web.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Kafka" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.Orleans" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.PostgreSQL" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
   </ItemGroup>
 
 </Project>
