@@ -13,15 +13,45 @@ public class PlayerWalletGrain : Grain, IPlayerWalletGrain
         _state = state;
     }
 
-    public override Task OnActivateAsync(CancellationToken cancellationToken)
+    public override async Task OnActivateAsync(CancellationToken cancellationToken)
     {
+        await _state.ReadStateAsync();
         if (_state.State.PlayerId == Guid.Empty)
         {
             _state.State.PlayerId = this.GetPrimaryKey();
         }
 
-        return base.OnActivateAsync(cancellationToken);
+        await base.OnActivateAsync(cancellationToken);
     }
 
     public Task<decimal> GetBalanceAsync() => Task.FromResult(_state.State.Balance);
+
+    public async Task<decimal> AddFundsAsync(decimal amount)
+    {
+        if (amount <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be greater than zero.");
+        }
+
+        _state.State.Balance += amount;
+        await _state.WriteStateAsync();
+        return _state.State.Balance;
+    }
+
+    public async Task<decimal> DeductFundsAsync(decimal amount)
+    {
+        if (amount <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(amount), "Amount must be greater than zero.");
+        }
+
+        if (_state.State.Balance < amount)
+        {
+            throw new InsufficientFundsException(_state.State.Balance, amount);
+        }
+
+        _state.State.Balance -= amount;
+        await _state.WriteStateAsync();
+        return _state.State.Balance;
+    }
 }

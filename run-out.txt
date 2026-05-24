@@ -1,0 +1,13 @@
+Using launch settings from C:\Users\lukan\source\repos\Player Wallet Service\Player Wallet Service.AppHost\Properties\launchSettings.json...
+info: Aspire.Hosting.DistributedApplication[0]
+      Aspire version: 13.1.0+8a4db1775c3fbae1c602022b636299cb04971fde
+info: Aspire.Hosting.DistributedApplication[0]
+      Distributed application starting.
+info: Aspire.Hosting.DistributedApplication[0]
+      Application host directory is: C:\Users\lukan\source\repos\Player Wallet Service\Player Wallet Service.AppHost
+info: Aspire.Hosting.DistributedApplication[0]
+      Now listening on: https://localhost:17082
+info: Aspire.Hosting.DistributedApplication[0]
+      Login to the dashboard at https://localhost:17082/login?t=1eda1b9c0239f2780c8430aef7981584
+info: Aspire.Hosting.DistributedApplication[0]
+      Distributed application started. Press Ctrl+C to shut down.

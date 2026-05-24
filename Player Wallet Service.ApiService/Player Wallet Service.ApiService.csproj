@@ -11,12 +11,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="scripts\orleans\**\*.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Aspire.Confluent.Kafka" Version="13.1.0" />
     <PackageReference Include="Aspire.Npgsql" Version="13.1.0" />
-    <PackageReference Include="Aspire.StackExchange.Redis" Version="13.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.1" />
-    <PackageReference Include="Microsoft.Orleans.Clustering.Redis" Version="9.2.1" />
-    <PackageReference Include="Microsoft.Orleans.Persistence.Redis" Version="9.2.1" />
+    <PackageReference Include="Microsoft.Orleans.Persistence.AdoNet" Version="9.2.1" />
+    <PackageReference Include="Microsoft.Orleans.Sdk" Version="9.2.1" />
     <PackageReference Include="Microsoft.Orleans.Server" Version="9.2.1" />
   </ItemGroup>
 
