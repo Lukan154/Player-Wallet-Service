@@ -9,7 +9,7 @@
 | Tool | How it was used |
 |------|-----------------|
 | **Cursor (Agent mode)** | Primary tool for the entire challenge. Multi-file edits, project scaffolding, running builds/tests, and documentation updates. |
-| **Chat-based prompting** | Planning, explanations, debugging, and phase-by-phase direction ("let's do Phase 2", "what is next phase?"). |
+| **Chat-based prompting** | Planning, explanations, debugging, and phase-by-phase direction. |
 | **Agentic coding** | Agent implemented features autonomously across AppHost, ApiService, tests, and benchmarks — not just inline suggestions. |
 
 No separate inline Copilot or Claude Code session was used; work stayed in one Cursor Agent conversation tied to this repo.
