@@ -7,6 +7,7 @@ namespace Player_Wallet_Service.ApiService.Endpoints;
 
 public static class WalletEndpoints
 {
+    // Defines API endpoints for player wallet operations such as retrieving balance, adding funds, and deducting funds.
     public static IEndpointRouteBuilder MapWalletEndpoints(this IEndpointRouteBuilder endpoints)
     {
         var group = endpoints.MapGroup("/players/{playerId:guid}");
@@ -25,6 +26,7 @@ public static class WalletEndpoints
         return endpoints;
     }
 
+    // Handler for retrieving a player's wallet balance. It interacts with the Orleans grain to get the balance and returns it in the response.
     private static async Task<IResult> GetBalanceAsync(Guid playerId, IGrainFactory grains)
     {
         var grain = grains.GetGrain<IPlayerWalletGrain>(playerId);
@@ -32,6 +34,7 @@ public static class WalletEndpoints
         return TypedResults.Ok(new { playerId, balance });
     }
 
+    // Handler for adding funds to a player's wallet. It interacts with the Orleans grain to add funds and publishes an event.
     private static async Task<IResult> AddFundsAsync(
         Guid playerId,
         FundsRequest request,
@@ -70,6 +73,7 @@ public static class WalletEndpoints
         }
     }
 
+    // Handler for deducting funds from a player's wallet. It interacts with the Orleans grain to deduct funds and publishes an event.
     private static async Task<IResult> DeductFundsAsync(
         Guid playerId,
         FundsRequest request,

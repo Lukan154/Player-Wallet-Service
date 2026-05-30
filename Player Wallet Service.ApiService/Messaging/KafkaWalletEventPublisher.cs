@@ -5,6 +5,8 @@ using Player_Wallet_Service.ApiService.Events;
 
 namespace Player_Wallet_Service.ApiService.Messaging;
 
+// Implements the IWalletEventPublisher interface to publish wallet events to a Kafka topic.
+
 public sealed class KafkaWalletEventPublisher : IWalletEventPublisher
 {
     private static readonly JsonSerializerOptions JsonOptions = new(JsonSerializerDefaults.Web);
@@ -12,7 +14,7 @@ public sealed class KafkaWalletEventPublisher : IWalletEventPublisher
     private readonly IProducer<string, string> _producer;
     private readonly WalletKafkaOptions _options;
     private readonly ILogger<KafkaWalletEventPublisher> _logger;
-
+    
     public KafkaWalletEventPublisher(
         IProducer<string, string> producer,
         IOptions<WalletKafkaOptions> options,
@@ -23,10 +25,12 @@ public sealed class KafkaWalletEventPublisher : IWalletEventPublisher
         _logger = logger;
     }
 
+    // Publishes a wallet event to the configured Kafka topic.
     public async Task PublishAsync(WalletEvent walletEvent, CancellationToken cancellationToken = default)
     {
         try
         {
+            // Serialize the wallet event to JSON and create a Kafka message with the player ID as the key.
             var payload = JsonSerializer.Serialize(walletEvent, JsonOptions);
             var message = new Message<string, string>
             {
@@ -35,7 +39,8 @@ public sealed class KafkaWalletEventPublisher : IWalletEventPublisher
             };
 
             var result = await _producer.ProduceAsync(_options.TopicName, message, cancellationToken);
-
+            
+            // Log the successful publication of the event, including the event type, player ID, topic, partition, and offset.
             _logger.LogInformation(
                 "Published {EventType} for player {PlayerId} to {Topic} partition {Partition} offset {Offset}",
                 walletEvent.EventType,
@@ -46,6 +51,8 @@ public sealed class KafkaWalletEventPublisher : IWalletEventPublisher
         }
         catch (Exception ex)
         {
+            // If publishing to Kafka fails, the wallet operation has already been persisted, so the API still succeeds and the player is not impacted. 
+            // However, the failure to publish the event is logged as an error for monitoring and troubleshooting purposes.
             _logger.LogError(
                 ex,
                 "Failed to publish {EventType} for player {PlayerId} to topic {Topic}",

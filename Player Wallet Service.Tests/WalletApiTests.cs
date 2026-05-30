@@ -15,6 +15,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
     }
 
+    // Tests the API endpoint for retrieving a player's wallet balance. It verifies that a new player starts with a zero balance and that the correct player ID is returned in the response.
     [Fact]
     public async Task GetBalance_NewPlayer_ReturnsZero()
     {
@@ -27,6 +28,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(0m, body.Balance);
     }
 
+    // Tests the API endpoint for adding funds to a player's wallet. It verifies that the balance is correctly updated after adding funds and that the correct player ID is returned in the response.
     [Fact]
     public async Task AddFunds_IncreasesBalance()
     {
@@ -44,6 +46,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(100m, balanceBody.Balance);
     }
 
+    // Tests the API endpoint for deducting funds from a player's wallet. It verifies that the balance is correctly updated after deducting funds and that the correct player ID is returned in the response.
     [Fact]
     public async Task DeductFunds_DecreasesBalance()
     {
@@ -62,6 +65,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(70m, balanceBody.Balance);
     }
 
+    // Tests the API endpoint for deducting funds from a player's wallet when there are insufficient funds. It verifies that the operation returns a 409 Conflict status and that the balance remains unchanged.
     [Fact]
     public async Task DeductFunds_InsufficientFunds_Returns409AndLeavesBalanceUnchanged()
     {
@@ -85,6 +89,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(50m, balanceBody.Balance);
     }
 
+    // Tests the API endpoint for adding funds with an amount of zero. It verifies that the operation returns a 400 Bad Request status.
     [Fact]
     public async Task AddFunds_ZeroAmount_Returns400()
     {
@@ -95,6 +100,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    // Tests the API endpoint for adding funds with an invalid JSON payload. It verifies that the operation returns a 400 Bad Request status.
     [Fact]
     public async Task AddFunds_InvalidJson_Returns400()
     {
@@ -105,6 +111,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
     }
 
+    // Tests a workflow of adding multiple funds, deducting some funds, and then reading the balance to verify that the operations are correctly applied in sequence.
     [Fact]
     public async Task WalletWorkflow_AddMultipleDeductAndReadBalance()
     {
@@ -120,6 +127,7 @@ public sealed class WalletApiTests(DistributedApplicationFixture fixture)
         Assert.Equal(125m, balanceBody.Balance);
     }
 
+    // Tests that when funds are added to a player's wallet, a corresponding FundsAdded event is published to the Kafka topic. It uses a Kafka consumer to subscribe to the topic and verifies that the expected event is received with the correct player ID.
     [Fact]
     public async Task AddFunds_PublishesFundsAddedEventToKafka()
     {
